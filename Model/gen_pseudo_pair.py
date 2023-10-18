@@ -22,17 +22,12 @@ tf.logging.set_verbosity(tf.logging.INFO)
 random_seed = 12345
 rng = random.Random(random_seed)
 
-short_seq_prob = 0  # Probability of creating sequences which are shorter than the maximum length。
 flags = tf.flags
 FLAGS = flags.FLAGS
 
-flags.DEFINE_integer("pool_size", 10, "multiprocesses pool size.")
 flags.DEFINE_integer("max_seq_length", 50, "max sequence length.")
 flags.DEFINE_integer("max_predictions_per_seq", 5, "max_predictions_per_seq.")
 flags.DEFINE_float("masked_lm_prob", 0.1, "Masked LM probability.")
-flags.DEFINE_float("mask_prob", 1.0, "mask probabaility")
-flags.DEFINE_bool("do_eval", True, "")
-flags.DEFINE_bool("do_embed", True, "")
 flags.DEFINE_integer("sliding_step", 15, "sliding window step size.")
 flags.DEFINE_string("data_dir", './data/', "data dir.")
 flags.DEFINE_string("dataset_name", 'eth', "dataset name.")
@@ -413,14 +408,14 @@ def sequence_combination(seq_instance_list):
     print(len(pos_seq_pair_list))
 
     # set self transaction to "[pad]"
-    # pos_seq_pair_list_new = []
+    pos_seq_pair_list_new = []
 
-    # for pos_seq_pair in pos_seq_pair_list:
-    #     pos_seq_pair[0].tokens[0] = "[pad]"
-    #     pos_seq_pair[1].tokens[0] = "[pad]"
-    #     pos_seq_pair_list_new.append([pos_seq_pair[0], pos_seq_pair[1]])
+    for pos_seq_pair in pos_seq_pair_list:
+        pos_seq_pair[0].tokens[0] = "[pad]"
+        pos_seq_pair[1].tokens[0] = "[pad]"
+        pos_seq_pair_list_new.append([pos_seq_pair[0], pos_seq_pair[1]])
 
-    return pos_seq_pair_list
+    return pos_seq_pair_list_new
 
 
 def counted_jaccard_distance(seq_pair_list):

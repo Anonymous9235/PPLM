@@ -20,11 +20,10 @@ short_seq_prob = 0  # Probability of creating sequences which are shorter than t
 flags = tf.flags
 FLAGS = flags.FLAGS
 
-flags.DEFINE_integer("pool_size", 10, "multiprocesses pool size.")
 flags.DEFINE_integer("max_seq_length", 50, "max sequence length.")
 flags.DEFINE_float("masked_lm_prob", 0.8, "Masked LM probability.")
 flags.DEFINE_float("mask_prob", 1.0, "mask probabaility")
-flags.DEFINE_bool("do_eval", True, "")
+flags.DEFINE_bool("do_eval", False, "")
 flags.DEFINE_bool("do_embed", True, "")
 flags.DEFINE_integer("dupe_factor", 10, "Number of times to duplicate the input data (with different masks).")
 flags.DEFINE_integer("sliding_step", 30, "sliding window step size.")

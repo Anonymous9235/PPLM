@@ -189,17 +189,18 @@ def model_fn(features, mode, bert_config, vocab, init_checkpoint, learning_rate,
 
     # length averaging
     # first delete self-transaction and then do averaging
-    src_mask = tf.cast(tf.tile(tf.expand_dims(src_input_mask, axis=2), [1, 1, bert_config.hidden_size]), tf.float32)
-    src_embeddings = tf.reduce_mean(tf.multiply(src_model.get_sequence_output(), src_mask)[:,1:,:], axis=1)
-    dst_mask = tf.cast(tf.tile(tf.expand_dims(dst_input_mask, axis=2), [1, 1, bert_config.hidden_size]), tf.float32)
-    dst_embeddings = tf.reduce_mean(tf.multiply(dst_model.get_sequence_output(), dst_mask)[:,1:,:], axis=1)
+    # src_mask = tf.cast(tf.tile(tf.expand_dims(src_input_mask, axis=2), [1, 1, bert_config.hidden_size]), tf.float32)
+    # src_embeddings = tf.reduce_mean(tf.multiply(src_model.get_sequence_output(), src_mask)[:,1:,:], axis=1)
+    # dst_mask = tf.cast(tf.tile(tf.expand_dims(dst_input_mask, axis=2), [1, 1, bert_config.hidden_size]), tf.float32)
+    # dst_embeddings = tf.reduce_mean(tf.multiply(dst_model.get_sequence_output(), dst_mask)[:,1:,:], axis=1)
 
     # # directly use self transaction.
-    # src_embeddings = src_model.get_sequence_output()[:, 0, :]
-    # dst_embeddings = dst_model.get_sequence_output()[:, 0, :]
+    src_embeddings = src_model.get_sequence_output()[:, 0, :]
+    dst_embeddings = dst_model.get_sequence_output()[:, 0, :]
 
     print("src_embeddings:", src_embeddings)
     print("dst_embeddings:", dst_embeddings)
+    # print("deself!!!")
 
     loss = get_classifier_cross_entropy(src_embeddings, dst_embeddings)
     total_loss = loss

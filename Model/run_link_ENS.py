@@ -102,7 +102,7 @@ def generate_pairs(ens_pairs, min_cnt=2, max_cnt=2, mirror=True):
 
 def load_embedding():
 
-    embeddings = np.load("./data/embedding_" + FLAGS.algo + ".npy")
+    embeddings = np.load("./data/self_embedding_" + FLAGS.algo + ".npy")
     address_for_embedding = np.load("./data/address_" + FLAGS.algo + ".npy")
 
     # group by embedding according to address
@@ -188,7 +188,7 @@ def main():
     result["target_addr"] = result["target_idx"].apply(lambda x: idx_to_address[x])
     result.drop(["query_idx", "target_idx"], axis=1)
 
-    output_file = "data/" + FLAGS.algo + "_ENS_euclidean_rank.csv"
+    output_file = "data/self_" + FLAGS.algo + "_ENS_euclidean_rank.csv"
 
     result.to_csv(output_file, index=False)
 

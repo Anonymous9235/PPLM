@@ -114,8 +114,8 @@ def main(_):
         avg_embedding_file_name = "./data/avg_embedding_" + FLAGS.algo + ".npy"
 
         np.save(self_embedding_file_name, self_sequence_embedding_list)
-        np.save(deself_embedding_file_name, avg_del_self_sequence_embedding_list)
-        np.save(avg_embedding_file_name, avg_sequence_embedding_list)
+        # np.save(deself_embedding_file_name, avg_del_self_sequence_embedding_list)
+        # np.save(avg_embedding_file_name, avg_sequence_embedding_list)
 
         print("Saving address information...")
         np.save("./data/address_" + FLAGS.algo + ".npy", address_list)
